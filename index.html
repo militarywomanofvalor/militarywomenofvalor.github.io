@@ -768,7 +768,7 @@ a[href^="tel:"]:hover,a[href^="tel:"]:focus-visible{text-decoration:underline;te
     <input type="hidden" name="ml-submit" value="1"><input type="hidden" name="anticsrf" value="true">
     <button class="btn" type="submit">Sign Me Up</button>
     <p class="nlmsg" id="nlmsg" role="status" aria-live="polite"></p>
-    <p class="nlprivacy"><b>Your privacy:</b> We collect your email address and first name only to send you The Valor Weekly. We never sell or share your information. Your email address is stored securely by our newsletter provider MailerLite. Every issue includes an unsubscribe link. You will receive one email to confirm your subscription.</p>
+    <p class="nlprivacy"><b>Your privacy:</b> We collect your email address and first name only to send you The Valor Weekly. We never sell or share your information. Your email address is stored securely by our newsletter provider MailerLite and a copy is sent privately to our team. Every issue includes an unsubscribe link. You will receive one email to confirm your subscription.</p>
   </form>
 
 </div></section>
@@ -830,7 +830,7 @@ a[href^="tel:"]:hover,a[href^="tel:"]:focus-visible{text-decoration:underline;te
     <label class="nlconsent vconsent"><input type="checkbox" id="vok" required> <span>I agree that Military Women of Valor may save the information above and contact me about volunteering.</span></label>
     <button class="btn" type="submit">Submit My Application</button>
     <p class="nlmsg" id="vmsg" role="status" aria-live="polite"></p>
-    <p class="vprivacy"><b>Your privacy:</b> We use your information only to follow up about volunteering with Military Women of Valor. We never sell or share it. It is stored securely by our email provider MailerLite. You may ask us to remove it at any time.</p>
+    <p class="vprivacy"><b>Your privacy:</b> We use your information only to follow up about volunteering with Military Women of Valor. We never sell or share it. It is stored securely by our email provider MailerLite and a copy is sent privately to our team. You may ask us to remove it at any time.</p>
   </form>
 </div></section>
 
@@ -1020,6 +1020,17 @@ document.querySelectorAll('a[href^="mailto:"]').forEach(a=>a.addEventListener('c
 })();
 </script>
 
+
+<script>
+/* Quietly emails a copy of each form to the organization's inbox (used for the twice weekly summary). */
+window.mwovNotify=function(subject,obj){
+  try{
+    var body={_subject:subject,_template:'table',_captcha:'false'};
+    for(var k in obj){ if(obj[k]) body[k]=obj[k]; }
+    fetch('https://formsubmit.co/ajax/lenagoodman80@gmail.com',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(body)}).catch(function(){});
+  }catch(e){}
+};
+</script>
 <script>
 (function(){
   var f=document.getElementById('nlform'); if(!f) return;
@@ -1033,6 +1044,8 @@ document.querySelectorAll('a[href^="mailto:"]').forEach(a=>a.addEventListener('c
     btn.disabled=true;say('Signing you up...');
     var data=new FormData(f);
     function done(){
+      var nm=(document.getElementById('nlname')||{}).value||'';
+      if(window.mwovNotify) window.mwovNotify('MWOV Newsletter Sign Up',{'First name':nm,'Email':v});
       say('Thank you. Please check your inbox and click the link to confirm your subscription.');
       f.reset(); btn.disabled=false;
       if(typeof window.gtag==='function'){window.gtag('event','newsletter_signup',{method:'website form'});}
@@ -1062,7 +1075,12 @@ document.querySelectorAll('a[href^="mailto:"]').forEach(a=>a.addEventListener('c
     document.getElementById('vavail').value=vals('vav');
     var data=new FormData(f); data.delete('vint'); data.delete('vav');
     btn.disabled=true; say('Sending your application...');
+    var copy={};
+    [['fields[name]','First name'],['fields[last_name]','Last name'],['fields[email]','Email'],['fields[phone]','Phone'],['fields[city]','City'],['fields[state]','State']].forEach(function(p){var el=f.querySelector('[name="'+p[0]+'"]'); if(el) copy[p[1]]=el.value.trim();});
+    copy['How they would like to help']=ints; copy['Availability']=vals('vav');
+    var msgEl=f.querySelector('[name="fields[volunteer_message]"]'); copy['About them']=msgEl?msgEl.value.trim():'';
     function done(){
+      if(window.mwovNotify) window.mwovNotify('MWOV Volunteer Application',copy);
       f.reset(); btn.disabled=false;
       say('Thank you for volunteering with Military Women of Valor. We have received your application and you will receive a reply within 7 to 14 days.');
       if(typeof window.gtag==='function'){window.gtag('event','volunteer_application',{volunteer_interests:ints});}
