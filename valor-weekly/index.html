@@ -148,7 +148,12 @@ body{font-weight:500;-webkit-font-smoothing:antialiased}
 .salute-photo{margin:0;line-height:0}
 .salute-photo img{display:block;width:100%;height:clamp(340px,62vw,600px);object-fit:cover;object-position:50% 18%}
 .bake-pair{display:grid!important;grid-template-columns:1fr;grid-auto-rows:1fr;gap:4px}
-.bake-pair img{position:static!important;width:100%;height:100%;min-height:240px;object-fit:cover}
+.bake-pair img{position:static!important;width:100%;height:auto;min-height:0;aspect-ratio:4/3;object-fit:cover}
+.feature.wide .photo.bake-pair{min-height:0;align-self:start;grid-auto-rows:auto}
+.tribute .tdate{margin-top:-8px}
+.feature .photo.has-img.ph-tall{min-height:0!important;aspect-ratio:4/5}
+.feature .photo.has-img.ph-square{min-height:0!important;aspect-ratio:1/1}
+@media (min-width:481px) and (max-width:820px){.bake-pair{grid-template-columns:1fr 1fr}.bake-pair img{aspect-ratio:1/1}}
 @media (max-width:820px){.feature .photo.has-img,.feature.wide .photo.has-img,.cover .photo.has-img{min-height:0;aspect-ratio:4/3}.bake-pair{aspect-ratio:auto!important}.salute-photo img{height:auto;aspect-ratio:1/1}}
 @media (min-width:821px) and (max-width:1180px){.feature .photo.has-img{min-height:380px}}
 .tribute{text-align:center;display:grid;gap:14px;justify-items:center;padding-block:44px;background:var(--rose-soft)}
@@ -326,8 +331,9 @@ body{font-weight:500;-webkit-font-smoothing:antialiased}
 
 <figure class="salute-photo"><img src="img/salute.jpg" alt="A smiling woman soldier in uniform saluting in front of the American flag"></figure>
 <section class="tribute inner">
-  <p class="eyebrow">A Special Veterans Day Tribute &middot; November 11</p>
-  <h2>To All Who Served, <em>We Salute You</em></h2>
+  <p class="eyebrow">A Special Veterans Day Tribute</p>
+  <p class="eyebrow tdate">November 11</p>
+  <h2>To All Who Served <em>We Salute You</em></h2>
   <p>This Veterans Day Military Women of Valor proudly salutes every veteran who has worn our nation's uniform, those serving today and the families who stand beside them. We honor your courage, your sacrifice, your leadership and your commitment to our country.</p>
   <p class="trio">Your service matters. Your voice matters. Your legacy matters.</p>
   <p class="motto2">Honoring Her Service &middot; Celebrating Her Strength &middot; Empowering Her Future</p>
@@ -421,7 +427,7 @@ body{font-weight:500;-webkit-font-smoothing:antialiased}
         <p>You may be surprised by how much good was there all along.</p></div>
     </article>
     <article class="feature">
-      <figure class="photo a-walk has-img" style="margin:0;--art:linear-gradient(200deg,#B9C98A 0%,#D9A54A 40%,#A4532F 75%,#4A3022 100%)"><img src="img/move-rake.jpg" alt="A smiling woman raking fall leaves in her yard" loading="lazy" style="object-position:50% 15%"></figure>
+      <figure class="photo a-walk has-img ph-square" style="margin:0;--art:linear-gradient(200deg,#B9C98A 0%,#D9A54A 40%,#A4532F 75%,#4A3022 100%)"><img src="img/move-rake.jpg" alt="A smiling woman raking fall leaves in her yard" loading="lazy" style="object-position:50% 60%"></figure>
       <div class="text"><p class="tag">Movement</p><h4>Rake, Bend and Breathe</h4>
         <p>Raking leaves is a real workout. It works your arms, shoulders, back and legs while you enjoy crisp fall air.</p>
         <ul><li>Warm up with a few minutes of walking and gentle arm circles.</li><li>Keep your knees soft and let your legs do the work.</li><li>Switch hands every few minutes so both sides share the effort.</li><li>Fill bags only halfway so they stay light to lift.</li><li>Take a water break every twenty minutes.</li></ul>
@@ -445,7 +451,7 @@ body{font-weight:500;-webkit-font-smoothing:antialiased}
         <ol><li>Fill a basin with warm water.</li><li>Stir in half a cup of Epsom salt and a few drops of your favorite oil.</li><li>Float a handful of rose petals or a cinnamon stick for a cozy scent.</li><li>Light a candle and let yourself relax.</li><li>Soak for fifteen minutes while you sip tea or listen to music.</li><li>Pat dry, smooth on a rich lotion and slip into warm socks.</li></ol></div>
     </article>
     <article class="feature">
-      <figure class="photo a-fashion has-img" style="margin:0"><img src="img/fashion-coat.jpg" alt="A smiling woman in a cream wool coat, turtleneck and felt hat holding a coffee" loading="lazy" style="object-position:50% 12%"></figure>
+      <figure class="photo a-fashion has-img ph-tall" style="margin:0"><img src="img/fashion-coat.jpg" alt="A smiling woman in a cream wool coat, turtleneck and felt hat holding a coffee" loading="lazy" style="object-position:50% 0%"></figure>
       <div class="text"><p class="tag">Fashion</p><h4>Layer Up for Fall</h4>
         <p>Fall weather can change from chilly to warm in a single afternoon. Smart layers let you stay comfortable all day.</p>
         <ul><li>A soft turtleneck sweater as your warm base</li><li>A classic wool coat in cream, camel or charcoal</li><li>A felt hat with a ribbon band to finish the look</li><li>Cozy knit gloves and comfortable boots for chilly mornings</li></ul>
@@ -482,7 +488,7 @@ body{font-weight:500;-webkit-font-smoothing:antialiased}
         <p>You already know how much a team can accomplish. This season let that team spirit bless your community.</p></div>
     </article>
     <article class="feature wide">
-      <figure class="photo a-sister has-img bake-pair" style="margin:0"><img src="img/bake-pie.jpg" alt="A slice of pumpkin pie with whipped cream and caramel drizzle" loading="lazy" style="object-position:50% 60%"><img src="img/bake-thankyou.jpg" alt="A pumpkin, fall leaves and red berries beside a handwritten thank you card" loading="lazy" style="object-position:20% 65%"></figure>
+      <figure class="photo a-sister has-img bake-pair" style="margin:0"><img src="img/bake-pie.jpg" alt="A slice of pumpkin pie with whipped cream and caramel drizzle" loading="lazy" style="object-position:50% 60%"><img src="img/bake-thankyou.jpg" alt="A pumpkin, fall leaves and red berries beside a handwritten thank you card" loading="lazy" style="object-position:28% 60%"></figure>
       <div class="text"><p class="tag">Holiday Baking</p><h4>Stirring Up Sweet Memories</h4>
         <p class="lede">A Season of Pies, Pastries and Thanksgiving Traditions</p>
         <p>Some of our sweetest memories begin in the kitchen. The smell of cinnamon, the roll of a pie crust and a recipe card in a loved one's handwriting can carry us right back home.</p>
