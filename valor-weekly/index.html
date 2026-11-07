@@ -137,6 +137,10 @@ h1,h2,h3,h4{margin:0;font-family:var(--display);font-weight:600;line-height:1.08
 .cal time b{font-family:var(--display);font-size:26px;letter-spacing:0;line-height:1.1}
 .cal h4{font-size:20px}
 .cal p{font-size:16px;color:var(--muted)}
+/* Easier reading on the beige paper: darker ink, darker soft gray, a touch heavier text */
+:root{--ink:#0B0D12;--muted:#2F333C}
+body{font-weight:500;-webkit-font-smoothing:antialiased}
+.feature .text p,.feature li,.letter p,.news p,.cal p,.closing p,.call .dek,.section-head p,.cover .dek,.tribute p{color:var(--ink)}
 .cal h4{text-align:left}
 .cal p.note{font-size:15px;color:var(--ink);margin-top:4px}
 .calintro{font-style:italic;color:var(--muted);margin:4px 0 10px}
