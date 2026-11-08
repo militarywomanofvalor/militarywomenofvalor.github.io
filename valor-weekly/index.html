@@ -269,6 +269,19 @@ body{font-weight:500;-webkit-font-smoothing:antialiased}
 .cover .photo.has-img{min-height:420px}
 .feature .photo.has-img{min-height:280px}
 .feature.wide .photo.has-img{min-height:340px}
+/* Laptop and desktop: even photo heights so paired stories line up, wide photos fill their row, date boxes hug the date */
+@media (min-width:821px){
+  .feature .photo.has-img,.feature .photo.has-img.ph-tall,.feature .photo.has-img.ph-square{min-height:0!important;aspect-ratio:auto;height:380px}
+  .feature.wide .photo.has-img,.feature.wide .photo.has-img.ph-ada{height:auto;min-height:420px!important;aspect-ratio:auto;align-self:stretch}
+  .feature.wide .photo.bake-pair{align-self:stretch;grid-auto-rows:1fr;height:auto}
+  .feature.wide .photo.bake-pair img{height:100%;aspect-ratio:auto}
+  .feature .photo.has-img.ph-tall img{object-position:50% 6%!important}
+  .feature .photo.has-img.ph-square img{object-position:50% 40%!important}
+  .feature .photo.has-img.ph-ada img{object-position:50% 12%!important}
+}
+.cal time{align-self:start}
+.cal h4{text-align:left}
+
 .founder{margin:6px 0 10px;width:100%;overflow:hidden}
 .founder img{width:100%;height:auto;display:block}
 .author{display:flex;align-items:center;gap:14px}
@@ -417,7 +430,7 @@ body{font-weight:500;-webkit-font-smoothing:antialiased}
   <div class="section-head">
     <p class="eyebrow">For You This Week</p>
     <h3>Make <em>Time for You</em></h3>
-    <p>Veterans Day week can bring pride, memories and a very full calendar. These pages offer a few gentle ways to slow down and care for yourself.</p>
+    <p>Veterans Day can bring memories and a full calendar, these pages offer a few gentle ways to slow down and take care of yourself</p>
   </div>
 
   <div class="features">
@@ -542,7 +555,7 @@ body{font-weight:500;-webkit-font-smoothing:antialiased}
 <section class="closing inner">
   <p class="eyebrow">You Are Never Alone</p>
   <h3>Help Is Always Here</h3>
-  <p>If you are struggling please reach out today. Support is free, confidential and available every hour of every day.</p>
+  <p>If you&rsquo;re struggling please reach out today. Support is free confidential and available every hour of every day.</p>
   <dl class="lines">
     <div><dt>Veterans Crisis Line</dt><dd><a href="tel:988">Dial 988 then press 1</a></dd></div>
     <div><dt>Veterans Crisis Line by Text</dt><dd><a href="sms:838255">Text 838255</a></dd></div>
