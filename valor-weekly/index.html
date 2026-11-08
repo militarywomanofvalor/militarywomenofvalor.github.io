@@ -280,6 +280,14 @@ body{font-weight:500;-webkit-font-smoothing:antialiased}
   .feature .photo.has-img.ph-ada img{object-position:50% 12%!important}
 }
 .cal time{align-self:start}
+/* Laptop and desktop: cover photo on top, its wording underneath */
+@media (min-width:821px){
+  .cover{grid-template-columns:minmax(0,1fr)!important}
+  .cover .photo.has-img{order:-1;min-height:0!important;aspect-ratio:16/10}
+  .cover .photo.has-img img{object-position:57% 30%!important}
+  .cover .copy{justify-items:center;text-align:center;max-width:760px;margin:0 auto}
+}
+
 /* Phones: show every story photo whole, nothing cropped */
 @media (max-width:600px){
   .feature .photo.has-img,.feature.wide .photo.has-img,.feature .photo.has-img.ph-tall,.feature .photo.has-img.ph-square,.feature .photo.has-img.ph-ada{min-height:0!important;height:auto!important;aspect-ratio:auto!important;display:block}
