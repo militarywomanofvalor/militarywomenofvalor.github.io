@@ -280,6 +280,13 @@ body{font-weight:500;-webkit-font-smoothing:antialiased}
   .feature .photo.has-img.ph-ada img{object-position:50% 12%!important}
 }
 .cal time{align-self:start}
+/* Phones: show every story photo whole, nothing cropped */
+@media (max-width:600px){
+  .feature .photo.has-img,.feature.wide .photo.has-img,.feature .photo.has-img.ph-tall,.feature .photo.has-img.ph-square,.feature .photo.has-img.ph-ada{min-height:0!important;height:auto!important;aspect-ratio:auto!important;display:block}
+  .feature .photo.has-img > img{position:static!important;width:100%;height:auto!important;object-fit:contain}
+  .feature .photo.bake-pair{display:grid!important}
+}
+
 /* Founder photo: trim extra carpet below her feet */
 .founder img{aspect-ratio:960/1085;object-fit:cover;object-position:50% 0}
 /* Laptop and desktop: news stories and calendar each span the full width so neither column is left blank */
