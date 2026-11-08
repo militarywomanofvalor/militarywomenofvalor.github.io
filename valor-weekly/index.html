@@ -280,6 +280,13 @@ body{font-weight:500;-webkit-font-smoothing:antialiased}
   .feature .photo.has-img.ph-ada img{object-position:50% 12%!important}
 }
 .cal time{align-self:start}
+/* Healthy Food on laptops: whole platter on top, recipe underneath */
+@media (min-width:821px){
+  .feature.wide.food-wide{grid-template-columns:minmax(0,1fr)!important}
+  .feature.wide.food-wide .photo.has-img{min-height:0!important;height:auto!important;aspect-ratio:968/717;align-self:auto}
+  .feature.wide.food-wide .photo.has-img img{object-position:50% 50%!important}
+}
+
 /* Who We Are: heading across the top, then the five pillars in balanced pairs */
 .whowrap{display:grid;gap:26px;padding-block:56px}
 .whohead{display:grid;gap:14px;justify-items:center;text-align:center;max-width:760px;margin:0 auto}
@@ -483,7 +490,7 @@ body{font-weight:500;-webkit-font-smoothing:antialiased}
         <p>Then step back and admire the work. You earned that cup of cider.</p></div>
     </article>
 
-    <article class="feature wide">
+    <article class="feature wide food-wide">
       <figure class="photo a-soup has-img" style="margin:0"><img src="img/food-squash.jpg" alt="Roasted squash slices with pomegranate seeds and fresh herbs" loading="lazy" style="object-position:50% 50%"></figure>
       <div class="text"><p class="tag">Healthy Food</p><h4>Maple Roasted Squash With Pomegranate</h4>
         <p>A bright and easy side dish for your Thanksgiving table. It serves six and can be made the morning of the meal.</p>
