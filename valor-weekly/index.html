@@ -280,6 +280,16 @@ body{font-weight:500;-webkit-font-smoothing:antialiased}
   .feature .photo.has-img.ph-ada img{object-position:50% 12%!important}
 }
 .cal time{align-self:start}
+/* Founder photo: trim extra carpet below her feet */
+.founder img{aspect-ratio:960/1085;object-fit:cover;object-position:50% 0}
+/* Laptop and desktop: news stories and calendar each span the full width so neither column is left blank */
+@media (min-width:821px){
+  .duo{grid-template-columns:minmax(0,1fr)!important;gap:40px}
+  .duo .news{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:40px}
+  .duo .cal{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:40px}
+  .duo .calintro,.duo .calnote{text-align:center}
+}
+
 
 .founder{margin:6px 0 10px;width:100%;overflow:hidden}
 .founder img{width:100%;height:auto;display:block}
