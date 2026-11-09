@@ -1254,10 +1254,15 @@ window.mwovNotify=function(subject,obj){
     if(tab!==current && typeof window.gtag==='function'){ window.gtag('event','tab_view',{tab_name:LABEL[tab]}); }
     current=tab;
     var target=opts.target?document.getElementById(opts.target):null;
-    if(target && target.getAttribute('data-tab-panel')===tab && target!==panels.filter(function(p){return !p.hidden;})[0]){
+    var vis=panels.filter(function(p){return !p.hidden;});
+    /* never jump past the disclaimer at the top of a page */
+    var firstContent=(vis[0]&&vis[0].id.indexOf('disclaimer')===0)?vis[1]:vis[0];
+    if(target && (target===firstContent || (LABEL[opts.target] && !opts.push))) target=null;
+    if(target && target.getAttribute('data-tab-panel')===tab && target!==vis[0]){
       var bar=document.querySelector('.bar'); var y=target.getBoundingClientRect().top+window.pageYOffset-(bar?bar.offsetHeight:0);
-      window.scrollTo(0,y);
+      window.scrollTo(0,y); return true;
     } else if(!opts.keepScroll){ window.scrollTo(0,0); }
+    return false;
   }
   btns.forEach(function(b){ b.addEventListener('click',function(){ show(b.getAttribute('data-tab'),{push:true}); }); });
   /* buttons elsewhere on the page that used to scroll to a section */
@@ -1269,7 +1274,11 @@ window.mwovNotify=function(subject,obj){
   },true);
   window.addEventListener('popstate',function(){ show(tabOf((location.hash||'').slice(1))||'home',{}); });
   var start=(location.hash||'').slice(1);
-  show(tabOf(start)||'home',{target:start,keepScroll:false});
+  var jumped=show(tabOf(start)||'home',{target:start,keepScroll:false});
+  /* stop the browser's own jump to #jobs, #news and the like so the disclaimer stays in view */
+  if(!jumped){ try{ history.scrollRestoration='manual'; }catch(e){}
+    var toTop=function(){ window.scrollTo(0,0); };
+    requestAnimationFrame(toTop); window.addEventListener('load',function(){ setTimeout(toTop,0); }); }
 })();
 </script>
 
