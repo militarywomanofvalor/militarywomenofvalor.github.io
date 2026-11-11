@@ -1320,7 +1320,7 @@ html body .rph, html body .rph *, html body .fp, html body .fp *, html body .urg
 <div id="vdpop" role="dialog" aria-modal="true" aria-label="Veterans Day message" hidden style="position:fixed;inset:0;z-index:9999;background:rgba(8,14,28,.86);display:flex;align-items:center;justify-content:center;padding:16px">
   <div style="position:relative;max-width:min(560px,100%);max-height:100%;display:flex;flex-direction:column;align-items:center;gap:12px">
     <img src="img/veterans-day-2026.jpg" alt="Veterans Day flyer. Honor, Remember, Thank. Veterans Day, Honoring All Who Served, November 11. A grateful nation remembers." style="display:block;max-width:100%;max-height:calc(100vh - 110px);width:auto;height:auto;border:3px solid #B8912F;border-radius:6px;box-shadow:0 12px 40px rgba(0,0,0,.5)">
-    <button type="button" id="vdclose" style="min-height:44px;padding:10px 28px;border:0;border-radius:4px;background:#B8912F;color:#13223F;font:700 16px 'Public Sans',Arial,sans-serif;cursor:pointer">Close</button>
+    <button type="button" id="vdclose" style="min-height:44px;padding:10px 28px;border:0;border-radius:4px;background:#B8912F;color:#13223F;font:700 16px 'Public Sans','Segoe UI',Arial,sans-serif;cursor:pointer">Close</button>
   </div>
 </div>
 <script>
@@ -1335,6 +1335,52 @@ html body .rph, html body .rph *, html body .fp, html body .fp *, html body .urg
   pop.addEventListener('click',function(e){if(e.target===pop)close();});
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&document.getElementById('vdpop'))close();});
   document.getElementById('vdclose').focus();
+})();
+</script>
+
+<!-- Disclaimer pop-up: shows the Independent Resource Connection Disclaimer once on each page of a visit.
+     It closes only with the Close button. The full disclaimer at the bottom of every page stays as it is. -->
+<style id="discpop-style">
+section[id^="disclaimer"]{display:none!important}
+#discpop{position:fixed;inset:0;z-index:9998;background:rgba(8,14,28,.82);display:none;align-items:center;justify-content:center;padding:16px}
+#discpop .box{max-width:680px;width:100%;max-height:calc(100vh - 32px);overflow:auto;box-sizing:border-box;background:#152036;border:1px solid #D4B25A;border-top:6px solid #D4B25A;border-radius:8px;padding:28px 30px 24px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.35)}
+#discpop-body > div{max-width:none!important;margin:0!important;border:0!important;background:none!important;padding:0!important;text-align:center!important}
+#discpop-body p{font-family:'Public Sans','Segoe UI',Arial,sans-serif!important;color:#A3AEC2!important;font-size:16px!important;line-height:1.6!important;letter-spacing:0!important;text-transform:none!important;margin:12px 0 0!important}
+#discpop-body p:first-child{color:#D4B25A!important;font-size:13px!important;font-weight:700!important;letter-spacing:.16em!important;text-transform:uppercase!important;margin:0 0 10px!important}
+#discpop-body p:nth-child(2){color:#E7EBF3!important;font-size:19px!important;line-height:1.65!important;margin:0!important}
+#discpop button{margin-top:22px;min-height:44px;padding:10px 34px;border:0;border-radius:4px;background:#B8912F;color:#13223F;font:700 16px 'Public Sans','Segoe UI',Arial,sans-serif;cursor:pointer}
+#discpop button:focus-visible{outline:3px solid #E7EBF3;outline-offset:3px}
+@media (max-width:520px){#discpop .box{padding:22px 18px 18px}#discpop-body p:nth-child(2){font-size:17px!important}}
+</style>
+<div id="discpop" role="dialog" aria-modal="true" aria-label="Independent Resource Connection Disclaimer">
+  <div class="box"><div id="discpop-body"></div><button type="button" id="discclose">Close</button></div>
+</div>
+<script>
+(function(){
+  var pop=document.getElementById('discpop'), body=document.getElementById('discpop-body'), btn=document.getElementById('discclose');
+  var secs=[].slice.call(document.querySelectorAll('section[id^="disclaimer"]'));
+  if(!pop||!secs.length) return;
+  var src=secs[0].querySelector('.wrap > div'); if(src) body.appendChild(src.cloneNode(true));
+  var open=false, cur=null;
+  function seen(k){try{return sessionStorage.getItem('mwov-disc-'+k)==='1';}catch(e){return false;}}
+  function mark(k){try{sessionStorage.setItem('mwov-disc-'+k,'1');}catch(e){}}
+  function check(){
+    if(open||document.getElementById('vdpop')) return;
+    var s=secs.filter(function(x){return !x.hidden;})[0];
+    if(!s||seen(s.id)) return;
+    cur=s.id; open=true; pop.style.display='flex';
+    document.documentElement.style.overflow='hidden'; btn.focus();
+  }
+  btn.addEventListener('click',function(){
+    pop.style.display='none'; document.documentElement.style.overflow=''; open=false;
+    if(cur) mark(cur); setTimeout(check,0);
+  });
+  /* keep keyboard focus on the Close button while the disclaimer is open */
+  document.addEventListener('keydown',function(e){ if(open&&e.key==='Tab'){ e.preventDefault(); btn.focus(); } });
+  var mo=new MutationObserver(check);
+  secs.forEach(function(s){ mo.observe(s,{attributes:true,attributeFilter:['hidden']}); });
+  mo.observe(document.body,{childList:true});
+  check();
 })();
 </script>
 </body></html>
